@@ -4,7 +4,7 @@ import Svg404 from "./images/404.svg?component" // vite-svg-loader 插件的功�
 </script>
 
 <template>
-  <Layout>
-    <Svg404 />
-  </Layout>
+    <Layout>
+        <Svg404 />
+    </Layout>
 </template>

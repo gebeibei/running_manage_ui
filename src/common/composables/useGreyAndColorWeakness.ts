@@ -7,14 +7,14 @@ const classList = document.documentElement.classList
 
 /** 初始化 */
 function initGreyAndColorWeakness() {
-  const settingsStore = useSettingsStore()
-  watchEffect(() => {
-    classList.toggle(GREY_MODE, settingsStore.showGreyMode)
-    classList.toggle(COLOR_WEAKNESS, settingsStore.showColorWeakness)
-  })
+    const settingsStore = useSettingsStore()
+    watchEffect(() => {
+        classList.toggle(GREY_MODE, settingsStore.showGreyMode)
+        classList.toggle(COLOR_WEAKNESS, settingsStore.showColorWeakness)
+    })
 }
 
 /** 灰色模式和色弱模式 Composable */
 export function useGreyAndColorWeakness() {
-  return { initGreyAndColorWeakness }
+    return { initGreyAndColorWeakness }
 }

@@ -1,19 +1,19 @@
 import type { LoadingOptions } from "element-plus"
 
 interface UseFullscreenLoading {
-  <T extends (...args: Parameters<T>) => ReturnType<T>>(
-    fn: T,
-    options?: LoadingOptions
-  ): (...args: Parameters<T>) => Promise<ReturnType<T>>
+    <T extends (...args: Parameters<T>) => ReturnType<T>>(
+        fn: T,
+        options?: LoadingOptions
+    ): (...args: Parameters<T>) => Promise<ReturnType<T>>
 }
 
 interface LoadingInstance {
-  close: () => void
+    close: () => void
 }
 
 const DEFAULT_OPTIONS = {
-  lock: true,
-  text: "加载中..."
+    lock: true,
+    text: "加载中..."
 }
 
 /**
@@ -24,13 +24,13 @@ const DEFAULT_OPTIONS = {
  * @returns 返回一个新的函数，该函数返回一个 Promise
  */
 export const useFullscreenLoading: UseFullscreenLoading = (fn, options = {}) => {
-  let loadingInstance: LoadingInstance
-  return async (...args) => {
-    try {
-      loadingInstance = ElLoading.service({ ...DEFAULT_OPTIONS, ...options })
-      return await fn(...args)
-    } finally {
-      loadingInstance.close()
+    let loadingInstance: LoadingInstance
+    return async (...args) => {
+        try {
+            loadingInstance = ElLoading.service({ ...DEFAULT_OPTIONS, ...options })
+            return await fn(...args)
+        } finally {
+            loadingInstance.close()
+        }
     }
-  }
 }

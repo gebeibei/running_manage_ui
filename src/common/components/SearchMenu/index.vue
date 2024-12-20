@@ -6,24 +6,24 @@ const visible = ref<boolean>(false)
 
 /** 打开 modal */
 function handleOpen() {
-  visible.value = true
+    visible.value = true
 }
 </script>
 
 <template>
-  <div>
-    <el-tooltip effect="dark" content="搜索菜单" placement="bottom">
-      <SvgIcon name="search" @click="handleOpen" class="svg-icon" />
-    </el-tooltip>
-    <Modal v-model="visible" />
-  </div>
+    <div>
+        <el-tooltip effect="dark" content="搜索菜单" placement="bottom">
+            <SvgIcon name="search" @click="handleOpen" class="svg-icon" />
+        </el-tooltip>
+        <Modal v-model="visible" />
+    </div>
 </template>
 
 <style lang="scss" scoped>
 .svg-icon {
-  font-size: 20px;
-  &:focus {
-    outline: none;
-  }
+    font-size: 20px;
+    &:focus {
+        outline: none;
+    }
 }
 </style>

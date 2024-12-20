@@ -32,103 +32,103 @@ const tipLineWidth = computed(() => !isTop.value ? "2px" : "0px")
 </script>
 
 <template>
-  <div :class="{ 'has-logo': isLogo }">
-    <Logo v-if="isLogo" :collapse="isCollapse" />
-    <el-scrollbar wrap-class="scrollbar-wrapper">
-      <el-menu
-        :default-active="activeMenu"
-        :collapse="isCollapse && !isTop"
-        :background-color="backgroundColor"
-        :text-color="textColor"
-        :active-text-color="activeTextColor"
-        :collapse-transition="false"
-        :mode="isTop && !isMobile ? 'horizontal' : 'vertical'"
-      >
-        <Item
-          v-for="noHiddenRoute in noHiddenRoutes"
-          :key="noHiddenRoute.path"
-          :item="noHiddenRoute"
-          :base-path="noHiddenRoute.path"
-        />
-      </el-menu>
-    </el-scrollbar>
-  </div>
+    <div :class="{ 'has-logo': isLogo }">
+        <Logo v-if="isLogo" :collapse="isCollapse" />
+        <el-scrollbar wrap-class="scrollbar-wrapper">
+            <el-menu
+                :default-active="activeMenu"
+                :collapse="isCollapse && !isTop"
+                :background-color="backgroundColor"
+                :text-color="textColor"
+                :active-text-color="activeTextColor"
+                :collapse-transition="false"
+                :mode="isTop && !isMobile ? 'horizontal' : 'vertical'"
+            >
+                <Item
+                    v-for="noHiddenRoute in noHiddenRoutes"
+                    :key="noHiddenRoute.path"
+                    :item="noHiddenRoute"
+                    :base-path="noHiddenRoute.path"
+                />
+            </el-menu>
+        </el-scrollbar>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 %tip-line {
-  &::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: v-bind(tipLineWidth);
-    height: 100%;
-    background-color: var(--v3-sidebar-menu-tip-line-bg-color);
-  }
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: v-bind(tipLineWidth);
+        height: 100%;
+        background-color: var(--v3-sidebar-menu-tip-line-bg-color);
+    }
 }
 
 .has-logo {
-  .el-scrollbar {
-    height: calc(100% - var(--v3-header-height));
-  }
+    .el-scrollbar {
+        height: calc(100% - var(--v3-header-height));
+    }
 }
 
 .el-scrollbar {
-  height: 100%;
-  :deep(.scrollbar-wrapper) {
-    // 限制水平宽度
-    overflow-x: hidden;
-  }
-  // 滚动条
-  :deep(.el-scrollbar__bar) {
-    &.is-horizontal {
-      // 隐藏水平滚动条
-      display: none;
+    height: 100%;
+    :deep(.scrollbar-wrapper) {
+        // 限制水平宽度
+        overflow-x: hidden;
     }
-  }
+    // 滚动条
+    :deep(.el-scrollbar__bar) {
+        &.is-horizontal {
+            // 隐藏水平滚动条
+            display: none;
+        }
+    }
 }
 
 .el-menu {
-  user-select: none;
-  border: none;
-  width: 100%;
+    user-select: none;
+    border: none;
+    width: 100%;
 }
 
 .el-menu--horizontal {
-  height: v-bind(sidebarMenuItemHeight);
+    height: v-bind(sidebarMenuItemHeight);
 }
 
 :deep(.el-menu-item),
 :deep(.el-sub-menu__title),
 :deep(.el-sub-menu .el-menu-item),
 :deep(.el-menu--horizontal .el-menu-item) {
-  height: v-bind(sidebarMenuItemHeight);
-  line-height: v-bind(sidebarMenuItemHeight);
-  &.is-active,
-  &:hover {
-    background-color: v-bind(sidebarMenuHoverBgColor);
-  }
+    height: v-bind(sidebarMenuItemHeight);
+    line-height: v-bind(sidebarMenuItemHeight);
+    &.is-active,
+    &:hover {
+        background-color: v-bind(sidebarMenuHoverBgColor);
+    }
 }
 
 :deep(.el-sub-menu) {
-  &.is-active {
-    > .el-sub-menu__title {
-      color: v-bind(activeTextColor);
+    &.is-active {
+        > .el-sub-menu__title {
+            color: v-bind(activeTextColor);
+        }
     }
-  }
 }
 
 :deep(.el-menu-item.is-active) {
-  @extend %tip-line;
+    @extend %tip-line;
 }
 
 .el-menu--collapse {
-  :deep(.el-sub-menu.is-active) {
-    .el-sub-menu__title {
-      @extend %tip-line;
-      background-color: v-bind(sidebarMenuHoverBgColor);
+    :deep(.el-sub-menu.is-active) {
+        .el-sub-menu__title {
+            @extend %tip-line;
+            background-color: v-bind(sidebarMenuHoverBgColor);
+        }
     }
-  }
 }
 </style>

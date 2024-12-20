@@ -4,31 +4,31 @@ import { shallowMount } from "@vue/test-utils"
 import { describe, expect, it } from "vitest"
 
 describe("notify", () => {
-  it("正常渲染", () => {
-    const wrapper = shallowMount(Notify)
-    expect(wrapper.classes("notify")).toBe(true)
-  })
+    it("正常渲染", () => {
+        const wrapper = shallowMount(Notify)
+        expect(wrapper.classes("notify")).toBe(true)
+    })
 })
 
 describe("list", () => {
-  it("list 长度为 0", () => {
-    const wrapper = shallowMount(List, {
-      props: {
-        data: []
-      }
+    it("list 长度为 0", () => {
+        const wrapper = shallowMount(List, {
+            props: {
+                data: []
+            }
+        })
+        expect(wrapper.find("el-empty-stub").exists()).toBe(true)
     })
-    expect(wrapper.find("el-empty-stub").exists()).toBe(true)
-  })
-  it("list 长度不为 0", () => {
-    const wrapper = shallowMount(List, {
-      props: {
-        data: [
-          {
-            title: ""
-          }
-        ]
-      }
+    it("list 长度不为 0", () => {
+        const wrapper = shallowMount(List, {
+            props: {
+                data: [
+                    {
+                        title: ""
+                    }
+                ]
+            }
+        })
+        expect(wrapper.find("el-empty-stub").exists()).toBe(false)
     })
-    expect(wrapper.find("el-empty-stub").exists()).toBe(false)
-  })
 })

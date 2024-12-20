@@ -8,6 +8,6 @@ const whiteListByName: RouteRecordNameGeneric[] = []
 
 /** 判断是否在白名单 */
 export function isWhiteList(to: RouteLocationNormalized) {
-  // path 和 name 任意一个匹配上即可
-  return whiteListByPath.includes(to.path) || whiteListByName.includes(to.name)
+    // path 和 name 任意一个匹配上即可
+    return whiteListByPath.includes(to.path) || whiteListByName.includes(to.name)
 }

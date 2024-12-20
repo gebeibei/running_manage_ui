@@ -8,5 +8,5 @@ const isDesktop = computed(() => appStore.device === DeviceEnum.Desktop)
 
 /** 设备类型 Composable */
 export function useDevice() {
-  return { isMobile, isDesktop }
+    return { isMobile, isDesktop }
 }

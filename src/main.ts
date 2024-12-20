@@ -24,5 +24,5 @@ app.use(pinia).use(router)
 
 // router 准备就绪后挂载应用
 router.isReady().then(() => {
-  app.mount("#app")
+    app.mount("#app")
 })
