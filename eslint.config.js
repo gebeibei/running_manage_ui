@@ -37,7 +37,8 @@ export default antfu(
             "no-debugger": "off",
             "symbol-description": "off",
             "antfu/if-newline": "off",
-            "antfu/top-level-function": "off"
+            "antfu/top-level-function": "off",
+            "eqeqeq": "off"
         }
     }
 )
