@@ -17,7 +17,6 @@ export default antfu(
         // 忽略文件
         ignores: [
             ".github/"
-
         ]
     },
     {

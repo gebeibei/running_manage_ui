@@ -57,13 +57,13 @@ jobs:
                 with:
                     path: |
                         activities
-                        assets
+                        src/common/assets/icons/data-statis
                         GPX_OUT
                         TCX_OUT
                         FIT_OUT
                         Workouts
                         run_page/data.db
-                        src/static/activities.json
+                        src/data/activities.json
                         imported.json
                     key: ${{ inputs.data_cache_prefix }}-${{ github.sha }}-${{ github.run_id }}
                     restore-keys: |

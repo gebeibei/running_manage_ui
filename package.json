@@ -12,7 +12,9 @@
         "preview": "vite preview",
         "lint": "eslint . --fix",
         "prepare": "husky",
-        "test": "vitest"
+        "test": "vitest",
+        "data:clean": "rm -f run_page/data.db {GPX,TCX,FIT}_OUT/* activities/* src/data/activities.json",
+        "data:analysis": "python3 run_page/gen_svg.py --from-db --type github --output src/common/assets/icons/data-statis/github.svg"
     },
     "dependencies": {
         "@element-plus/icons-vue": "2.3.1",
