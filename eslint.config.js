@@ -15,7 +15,10 @@ export default antfu(
             semi: false
         },
         // 忽略文件
-        ignores: []
+        ignores: [
+            ".github/"
+
+        ]
     },
     {
     // 对所有文件都生效的规则
