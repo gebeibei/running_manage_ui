@@ -80,6 +80,22 @@ export const constantRoutes: RouteRecordRaw[] = [
         ]
     },
     {
+        path: "/",
+        component: Layouts,
+        redirect: "/records",
+        children: [
+            {
+                path: "records",
+                component: () => import("@/pages/records/index.vue"),
+                name: "Records",
+                meta: {
+                    title: "运动记录",
+                    svgIcon: "dashboard"
+                }
+            }
+        ]
+    },
+    {
         path: "/demo",
         component: Layouts,
         redirect: "/demo/unocss",
