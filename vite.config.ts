@@ -110,6 +110,9 @@ export default defineConfig(({ mode }) => {
             AutoImport({
                 imports: ["vue", "vue-router", "pinia"],
                 dts: "types/auto/auto-imports.d.ts",
+                eslintrc: {
+                    enabled: true
+                },
                 resolvers: [ElementPlusResolver()]
             }),
             // 自动按需导入组件

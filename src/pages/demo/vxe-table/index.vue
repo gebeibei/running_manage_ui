@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import type { TableResponseData } from "@@/apis/table/type"
-import type { ElMessageBoxOptions } from "element-plus"
 import type { VxeFormInstance, VxeFormProps, VxeGridInstance, VxeGridProps, VxeModalInstance, VxeModalProps } from "vxe-table"
 import { deleteTableDataApi, getTableDataApi } from "@@/apis/table"
+import { ElMessageBox, type ElMessageBoxOptions } from "element-plus"
 import { RoleColumnSlots } from "./tsx/RoleColumnSlots"
 import { StatusColumnSlots } from "./tsx/StatusColumnSlots"
 
