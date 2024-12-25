@@ -1,7 +1,7 @@
 /* eslint-disable unused-imports/no-unused-vars */
 import data from "@/data/activities.json"
 import { RUN_TITLES } from "@@/constants/const"
-import lodash from "lodash"
+import { cloneDeep } from "lodash-es"
 
 export type Coordinate = [number, number]
 
@@ -105,8 +105,7 @@ const titleForRun = (run: Activity) => {
 /**
  * 跑步记录数据
  */
-const runRecords = lodash
-    .cloneDeep(data)
+const runRecords = cloneDeep(data)
     .reverse()
     .map((item: Activity) => {
         let location: { province: string, city: string, district: string } = {
@@ -124,7 +123,7 @@ const runRecords = lodash
 
         return {
             id: item.run_id,
-            origin: lodash.cloneDeep(item),
+            origin: cloneDeep(item),
             startDate: item.start_date_local,
             distance: (item.distance / 1000).toFixed(2),
             paceParts: item.average_speed ? formatPace(item.average_speed) : null,
