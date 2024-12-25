@@ -251,7 +251,7 @@ def main():
             p.years.from_year, p.years.to_year = y, y
             # may be refactor
             p.set_tracks(tracks)
-            p.draw(drawers[args.type], os.path.join("assets", f"year_{str(y)}.svg"))
+            p.draw(drawers[args.type], os.path.join("src/common/assets/icons/data-statis", f"year_{str(y)}.svg"))
     else:
         p.draw(drawers[args.type], args.output)
 
