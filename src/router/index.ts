@@ -107,6 +107,23 @@ export const constantRoutes: RouteRecordRaw[] = [
         ]
     },
     {
+        path: "/",
+        component: Layouts,
+        redirect: "/VDot",
+        children: [
+            {
+                path: "vDot",
+                component: () => import("@/pages/vDot/index.vue"),
+                name: "VDot",
+                meta: {
+                    title: "VDOT Running Calculator",
+                    svgIcon: "calculator",
+                    alwaysShow: true
+                }
+            }
+        ]
+    },
+    {
         path: "/demo",
         component: Layouts,
         redirect: "/demo/unocss",
@@ -199,33 +216,34 @@ export const constantRoutes: RouteRecordRaw[] = [
                 ]
             }
         ]
-    },
-    {
-        path: "/link",
-        meta: {
-            title: "文档链接",
-            elIcon: "Link",
-            hidden: true
-        },
-        children: [
-            {
-                path: "https://juejin.cn/post/7445151895121543209",
-                component: () => {},
-                name: "Link1",
-                meta: {
-                    title: "中文文档"
-                }
-            },
-            {
-                path: "https://juejin.cn/column/7207659644487139387",
-                component: () => {},
-                name: "Link2",
-                meta: {
-                    title: "新手教程"
-                }
-            }
-        ]
     }
+
+    // {
+    //     path: "/link",
+    //     meta: {
+    //         title: "文档链接",
+    //         elIcon: "Link",
+    //         hidden: true
+    //     },
+    //     children: [
+    //         {
+    //             path: "https://juejin.cn/post/7445151895121543209",
+    //             component: () => {},
+    //             name: "Link1",
+    //             meta: {
+    //                 title: "中文文档"
+    //             }
+    //         },
+    //         {
+    //             path: "https://juejin.cn/column/7207659644487139387",
+    //             component: () => {},
+    //             name: "Link2",
+    //             meta: {
+    //                 title: "新手教程"
+    //             }
+    //         }
+    //     ]
+    // }
 ]
 
 /**

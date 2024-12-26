@@ -323,6 +323,23 @@ const sortDateFunc = (a: Activity, b: Activity) => {
 }
 const sortDateFuncReverse = (a: Activity, b: Activity) => sortDateFunc(b, a)
 
+/**
+ * @description 将指定数组按照指定键值属性转成对象字典
+ * @template T
+ * @template T1
+ * @template T2
+ * @param { T } data
+ * @param { T1 } originKey 转换成目标对象的key对应数组对象中的属性,默认为value;
+ * @param { T2 } targetKey 转换成目标对象的value对应数组对象中的属性，默认为label
+ * @returns { ToKeyValue<T, T1, T2> }
+ */
+const getDict = <T extends Readonly<Array<any>>, T1 extends string = "value", T2 extends string = "label">(
+    data: T,
+    originKey: T1 = "value" as T1,
+    targetKey: T2 = "label" as T2
+): ToKeyValue<T, T1, T2> =>
+    data.reduce((r, d) => ({ ...r, [d[originKey]]: d[targetKey] }), {} as ToKeyValue<T, T1, T2>)
+
 export {
     convertMovingTime2Sec,
     filterAndSortRuns,
@@ -334,6 +351,7 @@ export {
     geoJsonForMap,
     geoJsonForRuns,
     getBoundsForGeoData,
+    getDict,
     intComma,
     locationForRun,
     pathForRun,

@@ -17,7 +17,8 @@ export default antfu(
         // 忽略文件
         ignores: [
             ".github/",
-            "run_page/"
+            "run_page/",
+            ".eslintrc-auto-import.json"
         ]
     },
     {
