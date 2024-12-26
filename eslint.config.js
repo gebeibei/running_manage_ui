@@ -26,6 +26,7 @@ export default antfu(
             // vue
             "vue/block-order": ["error", { order: ["template", "script", "style"] }],
             "vue/attributes-order": "off",
+            "vue/html-self-closing": "off",
             // ts
             "ts/no-use-before-define": "off",
             // node

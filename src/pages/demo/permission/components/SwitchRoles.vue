@@ -1,15 +1,3 @@
-<script lang="ts" setup>
-import { useUserStore } from "@/pinia/stores/user"
-
-const userStore = useUserStore()
-
-const switchRoles = ref(userStore.roles[0])
-
-watch(switchRoles, (value) => {
-    userStore.changeRoles(value)
-})
-</script>
-
 <template>
     <el-card shadow="never">
         <div>
@@ -27,6 +15,18 @@ watch(switchRoles, (value) => {
         </div>
     </el-card>
 </template>
+
+<script lang="ts" setup>
+import { useUserStore } from "@/pinia/stores/user"
+
+const userStore = useUserStore()
+
+const switchRoles = ref(userStore.roles[0])
+
+watch(switchRoles, (value) => {
+    userStore.changeRoles(value)
+})
+</script>
 
 <style lang="scss" scoped>
 .switch-roles {

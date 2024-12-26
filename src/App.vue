@@ -1,3 +1,9 @@
+<template>
+    <el-config-provider :locale="zhCn">
+        <router-view />
+    </el-config-provider>
+</template>
+
 <script lang="ts" setup>
 import { useGreyAndColorWeakness } from "@@/composables/useGreyAndColorWeakness"
 import { useTheme } from "@@/composables/useTheme"
@@ -11,9 +17,3 @@ initTheme()
 // 初始化灰色模式和色弱模式
 initGreyAndColorWeakness()
 </script>
-
-<template>
-    <el-config-provider :locale="zhCn">
-        <router-view />
-    </el-config-provider>
-</template>

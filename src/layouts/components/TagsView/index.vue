@@ -1,3 +1,39 @@
+<template>
+    <div class="tags-view-container">
+        <ScrollPane class="tags-view-wrapper" :tag-refs="tagRefs">
+            <router-link
+                v-for="tag in tagsViewStore.visitedViews"
+                :key="tag.path"
+                ref="tagRefs"
+                :class="{ active: isActive(tag) }"
+                class="tags-view-item"
+                :to="{ path: tag.path, query: tag.query }"
+                @click.middle="!isAffix(tag) && closeSelectedTag(tag)"
+                @contextmenu.prevent="openMenu(tag, $event)"
+            >
+                {{ tag.meta?.title }}
+                <el-icon v-if="!isAffix(tag)" :size="12" @click.prevent.stop="closeSelectedTag(tag)">
+                    <Close />
+                </el-icon>
+            </router-link>
+        </ScrollPane>
+        <ul v-show="visible" class="contextmenu" :style="{ left: `${left}px`, top: `${top}px` }">
+            <li @click="refreshSelectedTag(selectedTag)">
+                刷新
+            </li>
+            <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
+                关闭
+            </li>
+            <li @click="closeOthersTags">
+                关闭其它
+            </li>
+            <li @click="closeAllTags(selectedTag)">
+                关闭所有
+            </li>
+        </ul>
+    </div>
+</template>
+
 <script lang="ts" setup>
 import type { TagView } from "@/pinia/stores/tags-view"
 import type { RouteLocationNormalizedLoaded, RouteRecordRaw, RouterLink } from "vue-router"
@@ -165,42 +201,6 @@ listenerRouteChange((route) => {
     addTags(route)
 }, true)
 </script>
-
-<template>
-    <div class="tags-view-container">
-        <ScrollPane class="tags-view-wrapper" :tag-refs="tagRefs">
-            <router-link
-                v-for="tag in tagsViewStore.visitedViews"
-                :key="tag.path"
-                ref="tagRefs"
-                :class="{ active: isActive(tag) }"
-                class="tags-view-item"
-                :to="{ path: tag.path, query: tag.query }"
-                @click.middle="!isAffix(tag) && closeSelectedTag(tag)"
-                @contextmenu.prevent="openMenu(tag, $event)"
-            >
-                {{ tag.meta?.title }}
-                <el-icon v-if="!isAffix(tag)" :size="12" @click.prevent.stop="closeSelectedTag(tag)">
-                    <Close />
-                </el-icon>
-            </router-link>
-        </ScrollPane>
-        <ul v-show="visible" class="contextmenu" :style="{ left: `${left}px`, top: `${top}px` }">
-            <li @click="refreshSelectedTag(selectedTag)">
-                刷新
-            </li>
-            <li v-if="!isAffix(selectedTag)" @click="closeSelectedTag(selectedTag)">
-                关闭
-            </li>
-            <li @click="closeOthersTags">
-                关闭其它
-            </li>
-            <li @click="closeAllTags(selectedTag)">
-                关闭所有
-            </li>
-        </ul>
-    </div>
-</template>
 
 <style lang="scss" scoped>
 .tags-view-container {

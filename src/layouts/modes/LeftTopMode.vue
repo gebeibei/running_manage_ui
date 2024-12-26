@@ -1,20 +1,3 @@
-<script lang="ts" setup>
-import { useAppStore } from "@/pinia/stores/app"
-import { useSettingsStore } from "@/pinia/stores/settings"
-import { AppMain, Logo, NavigationBar, Sidebar, TagsView } from "../components"
-
-const appStore = useAppStore()
-const settingsStore = useSettingsStore()
-const { showTagsView, showLogo } = storeToRefs(settingsStore)
-
-/** 定义计算属性 layoutClasses，用于控制布局的类名 */
-const layoutClasses = computed(() => {
-    return {
-        hideSidebar: !appStore.sidebar.opened
-    }
-})
-</script>
-
 <template>
     <div :class="layoutClasses" class="app-wrapper">
         <!-- 头部导航栏和标签栏 -->
@@ -34,6 +17,23 @@ const layoutClasses = computed(() => {
         </div>
     </div>
 </template>
+
+<script lang="ts" setup>
+import { useAppStore } from "@/pinia/stores/app"
+import { useSettingsStore } from "@/pinia/stores/settings"
+import { AppMain, Logo, NavigationBar, Sidebar, TagsView } from "../components"
+
+const appStore = useAppStore()
+const settingsStore = useSettingsStore()
+const { showTagsView, showLogo } = storeToRefs(settingsStore)
+
+/** 定义计算属性 layoutClasses，用于控制布局的类名 */
+const layoutClasses = computed(() => {
+    return {
+        hideSidebar: !appStore.sidebar.opened
+    }
+})
+</script>
 
 <style lang="scss" scoped>
 @import "@@/assets/styles/mixins.scss";

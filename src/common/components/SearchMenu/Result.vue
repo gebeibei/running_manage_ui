@@ -1,3 +1,24 @@
+<template>
+    <!-- 外层 div 不能删除，是用来接收父组件 click 事件的 -->
+    <div>
+        <div
+            v-for="(item, index) in props.data"
+            :key="index"
+            :ref="`resultItemRef${index}`"
+            class="result-item"
+            :style="itemStyle(item)"
+            @mouseenter="handleMouseenter(item)"
+        >
+            <SvgIcon v-if="item.meta?.svgIcon" :name="item.meta.svgIcon" class="svg-icon" />
+            <component v-else-if="item.meta?.elIcon" :is="item.meta.elIcon" class="el-icon" />
+            <span class="result-item-title">
+                {{ item.meta?.title }}
+            </span>
+            <SvgIcon v-if="modelValue && modelValue === item.name" name="keyboard-enter" class="svg-icon" />
+        </div>
+    </div>
+</template>
+
 <script lang="ts" setup>
 import type { RouteRecordName, RouteRecordRaw } from "vue-router"
 
@@ -64,27 +85,6 @@ onBeforeUnmount(() => {
 
 defineExpose({ getScrollTop })
 </script>
-
-<template>
-    <!-- 外层 div 不能删除，是用来接收父组件 click 事件的 -->
-    <div>
-        <div
-            v-for="(item, index) in props.data"
-            :key="index"
-            :ref="`resultItemRef${index}`"
-            class="result-item"
-            :style="itemStyle(item)"
-            @mouseenter="handleMouseenter(item)"
-        >
-            <SvgIcon v-if="item.meta?.svgIcon" :name="item.meta.svgIcon" class="svg-icon" />
-            <component v-else-if="item.meta?.elIcon" :is="item.meta.elIcon" class="el-icon" />
-            <span class="result-item-title">
-                {{ item.meta?.title }}
-            </span>
-            <SvgIcon v-if="modelValue && modelValue === item.name" name="keyboard-enter" class="svg-icon" />
-        </div>
-    </div>
-</template>
 
 <style lang="scss" scoped>
 @import "@@/assets/styles/mixins.scss";

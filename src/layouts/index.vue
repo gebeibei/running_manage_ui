@@ -1,3 +1,18 @@
+<template>
+    <div>
+        <!-- 左侧模式 -->
+        <LeftMode v-if="isLeft || isMobile" />
+        <!-- 顶部模式 -->
+        <TopMode v-else-if="isTop" />
+        <!-- 混合模式 -->
+        <LeftTopMode v-else-if="isLeftTop" />
+        <!-- 右侧设置面板 -->
+        <RightPanel v-if="showSettings">
+            <Settings />
+        </RightPanel>
+    </div>
+</template>
+
 <script lang="ts" setup>
 import { useSettingsStore } from "@/pinia/stores/settings"
 import { useDevice } from "@@/composables/useDevice"
@@ -32,18 +47,3 @@ watchEffect(() => {
     showWatermark.value ? setWatermark(import.meta.env.VITE_APP_TITLE) : clearWatermark()
 })
 </script>
-
-<template>
-    <div>
-        <!-- 左侧模式 -->
-        <LeftMode v-if="isLeft || isMobile" />
-        <!-- 顶部模式 -->
-        <TopMode v-else-if="isTop" />
-        <!-- 混合模式 -->
-        <LeftTopMode v-else-if="isLeftTop" />
-        <!-- 右侧设置面板 -->
-        <RightPanel v-if="showSettings">
-            <Settings />
-        </RightPanel>
-    </div>
-</template>

@@ -1,9 +1,3 @@
-<script lang="ts" setup>
-import { Setting } from "@element-plus/icons-vue"
-
-const show = ref(false)
-</script>
-
 <template>
     <div class="handle-button" @click="show = true">
         <el-icon :size="24">
@@ -14,6 +8,12 @@ const show = ref(false)
         <slot />
     </el-drawer>
 </template>
+
+<script lang="ts" setup>
+import { Setting } from "@element-plus/icons-vue"
+
+const show = ref(false)
+</script>
 
 <style lang="scss" scoped>
 .handle-button {

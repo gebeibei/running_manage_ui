@@ -1,10 +1,3 @@
-<script lang="ts" setup>
-import { useLayoutMode } from "@@/composables/useLayoutMode"
-import { LayoutModeEnum } from "@@/constants/app-key"
-
-const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
-</script>
-
 <template>
     <div class="select-layout-mode">
         <el-tooltip content="左侧模式">
@@ -37,6 +30,13 @@ const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
         </el-tooltip>
     </div>
 </template>
+
+<script lang="ts" setup>
+import { useLayoutMode } from "@@/composables/useLayoutMode"
+import { LayoutModeEnum } from "@@/constants/app-key"
+
+const { isLeft, isTop, isLeftTop, setLayoutMode } = useLayoutMode()
+</script>
 
 <style lang="scss" scoped>
 .select-layout-mode {

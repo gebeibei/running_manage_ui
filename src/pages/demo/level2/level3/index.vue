@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-defineOptions({
-    name: "Level3"
-})
-
-const text = ref("")
-</script>
-
 <template>
     <div class="app-container">
         <el-card header="三级路由">
@@ -13,3 +5,11 @@ const text = ref("")
         </el-card>
     </div>
 </template>
+
+<script lang="ts" setup>
+defineOptions({
+    name: "Level3"
+})
+
+const text = ref("")
+</script>

@@ -1,3 +1,42 @@
+<template>
+    <el-dialog
+        v-model="modelValue"
+        :before-close="handleClose"
+        :width="modalWidth"
+        top="5vh"
+        class="search-modal__private"
+        append-to-body
+        @opened="inputRef?.focus()"
+        @closed="inputRef?.blur()"
+        @keydown.up="handleUp"
+        @keydown.down="handleDown"
+        @keydown.enter="handleEnter"
+        @keyup.up.down="handleReleaseUpOrDown"
+    >
+        <el-input ref="inputRef" v-model="keyword" placeholder="搜索菜单" size="large" clearable @input="handleSearch">
+            <template #prefix>
+                <SvgIcon name="search" class="svg-icon" />
+            </template>
+        </el-input>
+        <el-empty v-if="result.length === 0" description="暂无搜索结果" :image-size="100" />
+        <template v-else>
+            <p>搜索结果</p>
+            <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
+                <Result
+                    ref="resultRef"
+                    v-model="activeRouteName"
+                    :data="result"
+                    :is-press-up-or-down="isPressUpOrDown"
+                    @click="handleEnter"
+                />
+            </el-scrollbar>
+        </template>
+        <template #footer>
+            <Footer :total="result.length" />
+        </template>
+    </el-dialog>
+</template>
+
 <script lang="ts" setup>
 import type { ElScrollbar } from "element-plus"
 import type { RouteRecordName, RouteRecordRaw } from "vue-router"
@@ -137,45 +176,6 @@ function handleReleaseUpOrDown() {
     isPressUpOrDown.value = false
 }
 </script>
-
-<template>
-    <el-dialog
-        v-model="modelValue"
-        :before-close="handleClose"
-        :width="modalWidth"
-        top="5vh"
-        class="search-modal__private"
-        append-to-body
-        @opened="inputRef?.focus()"
-        @closed="inputRef?.blur()"
-        @keydown.up="handleUp"
-        @keydown.down="handleDown"
-        @keydown.enter="handleEnter"
-        @keyup.up.down="handleReleaseUpOrDown"
-    >
-        <el-input ref="inputRef" v-model="keyword" placeholder="搜索菜单" size="large" clearable @input="handleSearch">
-            <template #prefix>
-                <SvgIcon name="search" class="svg-icon" />
-            </template>
-        </el-input>
-        <el-empty v-if="result.length === 0" description="暂无搜索结果" :image-size="100" />
-        <template v-else>
-            <p>搜索结果</p>
-            <el-scrollbar ref="scrollbarRef" max-height="40vh" always>
-                <Result
-                    ref="resultRef"
-                    v-model="activeRouteName"
-                    :data="result"
-                    :is-press-up-or-down="isPressUpOrDown"
-                    @click="handleEnter"
-                />
-            </el-scrollbar>
-        </template>
-        <template #footer>
-            <Footer :total="result.length" />
-        </template>
-    </el-dialog>
-</template>
 
 <style lang="scss">
 .search-modal__private {

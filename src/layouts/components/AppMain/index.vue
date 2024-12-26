@@ -1,12 +1,3 @@
-<script lang="ts" setup>
-import { useSettingsStore } from "@/pinia/stores/settings"
-import { useTagsViewStore } from "@/pinia/stores/tags-view"
-import { Footer } from "../index"
-
-const tagsViewStore = useTagsViewStore()
-const settingsStore = useSettingsStore()
-</script>
-
 <template>
     <section class="app-main">
         <div class="app-scrollbar">
@@ -27,6 +18,15 @@ const settingsStore = useSettingsStore()
         <el-backtop target=".app-scrollbar" />
     </section>
 </template>
+
+<script lang="ts" setup>
+import { useSettingsStore } from "@/pinia/stores/settings"
+import { useTagsViewStore } from "@/pinia/stores/tags-view"
+import { Footer } from "../index"
+
+const tagsViewStore = useTagsViewStore()
+const settingsStore = useSettingsStore()
+</script>
 
 <style lang="scss" scoped>
 @import "@@/assets/styles/mixins.scss";

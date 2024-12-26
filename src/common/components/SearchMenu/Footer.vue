@@ -1,15 +1,3 @@
-<script lang="ts" setup>
-import { useDevice } from "@@/composables/useDevice"
-
-interface Props {
-    total: number
-}
-
-const props = defineProps<Props>()
-
-const { isMobile } = useDevice()
-</script>
-
 <template>
     <div class="search-footer">
         <template v-if="!isMobile">
@@ -30,6 +18,18 @@ const { isMobile } = useDevice()
         <span class="search-footer-total">共 {{ props.total }} 项</span>
     </div>
 </template>
+
+<script lang="ts" setup>
+import { useDevice } from "@@/composables/useDevice"
+
+interface Props {
+    total: number
+}
+
+const props = defineProps<Props>()
+
+const { isMobile } = useDevice()
+</script>
 
 <style lang="scss" scoped>
 .search-footer {

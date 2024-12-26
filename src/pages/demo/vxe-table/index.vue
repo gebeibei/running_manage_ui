@@ -1,3 +1,34 @@
+<template>
+    <div class="app-container">
+        <!-- 表格 -->
+        <vxe-grid ref="xGridDom" v-bind="xGridOpt">
+            <!-- 左侧按钮列表 -->
+            <template #toolbar-btns>
+                <vxe-button status="primary" icon="vxe-icon-add" @click="crudStore.onShowModal()">
+                    新增用户
+                </vxe-button>
+                <vxe-button status="danger" icon="vxe-icon-delete">
+                    批量删除
+                </vxe-button>
+            </template>
+            <!-- 操作 -->
+            <template #row-operate="{ row }">
+                <el-button link type="primary" @click="crudStore.onShowModal(row)">
+                    修改
+                </el-button>
+                <el-button link type="danger" @click="crudStore.onDelete(row)">
+                    删除
+                </el-button>
+            </template>
+        </vxe-grid>
+        <!-- 弹窗 -->
+        <vxe-modal ref="xModalDom" v-bind="xModalOpt">
+            <!-- 表单 -->
+            <vxe-form ref="xFormDom" v-bind="xFormOpt" />
+        </vxe-modal>
+    </div>
+</template>
+
 <script lang="ts" setup>
 import type { TableResponseData } from "@@/apis/table/type"
 import type { VxeFormInstance, VxeFormProps, VxeGridInstance, VxeGridProps, VxeModalInstance, VxeModalProps } from "vxe-table"
@@ -379,34 +410,3 @@ const crudStore = reactive({
 })
 // #endregion
 </script>
-
-<template>
-    <div class="app-container">
-        <!-- 表格 -->
-        <vxe-grid ref="xGridDom" v-bind="xGridOpt">
-            <!-- 左侧按钮列表 -->
-            <template #toolbar-btns>
-                <vxe-button status="primary" icon="vxe-icon-add" @click="crudStore.onShowModal()">
-                    新增用户
-                </vxe-button>
-                <vxe-button status="danger" icon="vxe-icon-delete">
-                    批量删除
-                </vxe-button>
-            </template>
-            <!-- 操作 -->
-            <template #row-operate="{ row }">
-                <el-button link type="primary" @click="crudStore.onShowModal(row)">
-                    修改
-                </el-button>
-                <el-button link type="danger" @click="crudStore.onDelete(row)">
-                    删除
-                </el-button>
-            </template>
-        </vxe-grid>
-        <!-- 弹窗 -->
-        <vxe-modal ref="xModalDom" v-bind="xModalOpt">
-            <!-- 表单 -->
-            <vxe-form ref="xFormDom" v-bind="xFormOpt" />
-        </vxe-modal>
-    </div>
-</template>

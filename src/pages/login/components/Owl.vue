@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-interface Props {
-    closeEyes: boolean
-}
-
-const props = defineProps<Props>()
-</script>
-
 <template>
     <div class="owl" :class="{ 'owl-password': props.closeEyes }">
         <div class="hand-down-left" />
@@ -15,6 +7,14 @@ const props = defineProps<Props>()
         <div class="close-eyes" />
     </div>
 </template>
+
+<script lang="ts" setup>
+interface Props {
+    closeEyes: boolean
+}
+
+const props = defineProps<Props>()
+</script>
 
 <style lang="scss" scoped>
 @mixin backgroundImage($url) {

@@ -1,27 +1,128 @@
+<template>
+    <div class="app-container p-24">
+        <!-- <div class="w-900 h-400" id="map" /> -->
+        <Mapbox :options="options" :register="register" @move="onMove" @load="onLoad" width="100%" :height="MAP_HEIGHT" class="relative">
+            <GeoJsonSource id="data" type="geojson" :data="geoData">
+                <FillLayer
+                    id="province"
+                    :style="
+                        {
+                            paint: {
+                                'fill-color': PROVINCE_FILL_COLOR,
+                            },
+                        }
+                    "
+                    :filter="filterProvinces"
+                />
+                <FillLayer
+                    id="countries"
+                    :style="
+                        {
+                            paint: {
+                                'fill-color': COUNTRY_FILL_COLOR,
+                                'fill-opacity': [`case`, [`==`, [`get`, `name`], `中国`], 0.1, 0.5],
+                            },
+                        }
+                    "
+                    :filter="filterCountries"
+                />
+                <LineLayer
+                    id="runs2"
+                    :style="{
+                        'line-color': ['get', 'color'],
+                        'line-width': isBigMap && lights ? 1 : 2,
+                        'line-dasharray': dash,
+                        'line-opacity': isSingleRun || isBigMap || !lights ? 1 : LINE_OPACITY,
+                        'line-blur': 1,
+                        'layout': {
+                            'line-join': 'round',
+                            'line-cap': 'round',
+                        },
+                    }"
+                />
+            </GeoJsonSource>
+
+            <Marker
+                key="maker_start"
+                :lnglat="[startLon, startLat]"
+            >
+                <div :style="markerStyle">
+                    <div v-html="StartSvg" class="wh-full mt-12 b-0 p-0"></div>
+                </div>
+            </Marker>
+
+            <Marker
+                key="maker_end"
+                :lnglat="[endLon, endLat]"
+            >
+                <div :style="markerStyle">
+                    <div v-html="EndSvg" class="wh-full mt-12 b-0 p-0"></div>
+                </div>
+            </Marker>
+
+            <div class="h-29 w-710 absolute bottom-0 left-120 cursor-pointer" style="color: rgb(224, 237, 94);">
+                {{ runTitle }}
+            </div>
+
+            <FullscreenControl
+                :style="{
+                    position: 'absolute',
+                    marginTop: '29.2px',
+                    right: '0px',
+                    top: '0px',
+                    opacity: 0.3,
+                }"
+            />
+
+            <LightsControl v-if="!PRIVACY_MODE" v-model="lights" />
+            <NavigationControl :show-compass="false" position="bottom-right" style="opacity: 0.3;"></NavigationControl>
+        </Mapbox>
+    </div>
+</template>
+
 <script lang="ts" setup>
-import type { Coordinate } from "@/common/utils/utils"
+import type { Coordinate, IViewState } from "@/common/utils/utils"
+import type { ExpressionSpecification, MapOptions } from "mapbox-gl"
 import { useRun } from "@/common/composables/useRun"
-import { COUNTRY_FILL_COLOR, IS_CHINESE, LIGHTS_ON, LINE_OPACITY, MAPBOX_TOKEN, PRIVACY_MODE, PROVINCE_FILL_COLOR, USE_DASH_LINE } from "@/common/constants/const"
-import { geoJsonForMap, geoJsonForRuns, getBoundsForGeoData } from "@/common/utils/utils"
+import {
+    COUNTRY_FILL_COLOR,
+    IS_CHINESE,
+    LIGHTS_ON,
+    LINE_OPACITY,
+    MAP_HEIGHT,
+    MAP_LAYER_LIST,
+    PRIVACY_MODE,
+    PROVINCE_FILL_COLOR,
+    ROAD_LABEL_DISPLAY,
+    USE_DASH_LINE
+} from "@/common/constants/const"
+import { geoJsonForMap, geoJsonForRuns, getBoundsForGeoData, titleForShow } from "@/common/utils/utils"
+import EndSvg from "@@/assets/icons/end.svg?raw"
+import StartSvg from "@@/assets/icons/start.svg?raw"
 import MapboxLanguage from "@mapbox/mapbox-gl-language"
-// import * as mapboxPolyline from "@mapbox/polyline"
-// import { FeatureCollection } from "geojson"
-import mapboxgl from "mapbox-gl"
+import { useMapbox } from "vue3-mapbox-gl"
+import LightsControl from "./LightsControl.vue"
 import "./mapbox.css"
+/** https://monzeye.github.io/vue3-mapbox-gl-doc/ */
 
 defineOptions({ name: "RecordDetail" })
+
+const size = 5
+const markerStyle = {
+    transform: `translate(${-size / 2}px,${-size}px)`,
+    maxWidth: "25px"
+}
 
 const route = useRoute()
 const runId = route.query.id as string
 const { getDetailById, provinces, countries } = useRun()
 const recordInfo = ref(getDetailById(+runId))
-const geoData = ref(geoJsonForRuns([recordInfo.value as any]))
+const geoData = ref(geoJsonForRuns([recordInfo.value as any].map(n => n.origin)))
 const bounds = getBoundsForGeoData(geoData.value)
-const viewState = reactive({ ...bounds })
-const filterProvinces = provinces.slice()
-const filterCountries = countries.slice()
-filterProvinces.unshift("in", "name")
-filterCountries.unshift("in", "name")
+const viewState = reactive<Required<IViewState>>({ ...bounds } as any)
+const filterProvinces: ExpressionSpecification = ["name", [...provinces.slice()]]
+const filterCountries: ExpressionSpecification = ["name", [...countries.slice()]]
+const runTitle = recordInfo.value?.origin && titleForShow(recordInfo.value?.origin)
 
 const isSingleRun
     = geoData.value.features.length === 1
@@ -49,75 +150,56 @@ if (isSingleRun) {
     [endLon, endLat] = points[points.length - 1]
 }
 
-mapboxgl.accessToken = MAPBOX_TOKEN
-
-const initMap = () => {
-    const map = new mapboxgl.Map({
-        container: "map",
-        style: "mapbox://styles/mapbox/dark-v10"
-    })
-
-    map.on("style.load", () => {
-        map?.addControl(new MapboxLanguage({ defaultLanguage: "zh-Hans" }))
-
-        map.addSource("source", { data: geoData.value, type: "geojson" })
-        map.addLayer({ type: "fill", source: "source", id: "province", filter: filterProvinces, paint: { "fill-color": PROVINCE_FILL_COLOR } })
-        map.addLayer({ type: "fill", source: "source", id: "countries", filter: filterCountries, paint: { "fill-color": COUNTRY_FILL_COLOR, "fill-opacity": ["case", ["==", ["get", "name"], "中国"], 0.1, 0.5] } })
-        map.addLayer({ type: "line", source: "source", id: "runs2", layout: { "line-join": "round", "line-cap": "round" }, paint: { "line-color": ["get", "color"], "line-width": isBigMap && lights.value ? 1 : 2, "line-dasharray": dash, "line-opacity": isSingleRun || isBigMap || !lights.value ? 1 : LINE_OPACITY } })
-
-        // 添加起点，终点
-        const startEndGeojson = {
-            type: "FeatureCollection",
-            features: [
-                {
-                    type: "Feature",
-                    properties: {
-                        typeColor: "start"
-                    },
-                    geometry: {
-                        type: "Point",
-                        coordinates: [startLon, startLat]
-                    }
-                },
-                {
-                    type: "Feature",
-                    properties: {
-                        typeColor: "end"
-                    },
-                    geometry: {
-                        type: "Point",
-                        coordinates: [endLon, endLat]
-                    }
-                }
-            ]
+const keepWhenLightsOff = ["runs2"]
+const options: Partial<MapOptions> = {
+    style: "mapbox://styles/mapbox/dark-v10",
+    zoom: viewState.zoom,
+    center: [viewState.longitude, viewState.latitude]
+}
+const [register, { getMapInstance, getStyle, getCenter, getZoom }] = useMapbox()
+const switchLayerVisibility = (lights: boolean) => {
+    const map = getMapInstance.value
+    const styleJson = getStyle()
+    styleJson?.layers.forEach((it: { id: string }) => {
+        if (!keepWhenLightsOff.includes(it.id)) {
+            if (lights)
+                map?.setLayoutProperty(it.id, "visibility", "visible")
+            else
+                map?.setLayoutProperty(it.id, "visibility", "none")
         }
-
-        map.addSource("startEndSource", {
-            type: "geojson",
-            data: startEndGeojson as any
-        })
-        // 起点和终点
-        map.addLayer({
-            id: "startEnd-layer",
-            type: "circle",
-            source: "startEndSource",
-            paint: {
-                "circle-radius": 10,
-                "circle-color": ["match", ["get", "typeColor"], "start", "green", "end", "red", "#cccccc"]
-            }
-        })
     })
 }
+const onLoad = () => {
+    const map = getMapInstance.value
+    if (map && IS_CHINESE) {
+        map.addControl(new MapboxLanguage({
+            defaultLanguage: "zh-Hans"
+        }))
+    }
 
-onMounted(() => {
-    initMap()
-})
+    map?.on("style.load", () => {
+        if (!ROAD_LABEL_DISPLAY) {
+            MAP_LAYER_LIST.forEach((id) => {
+                map?.removeLayer(id)
+            })
+        }
+        switchLayerVisibility(lights.value)
+    })
+
+    if (map) {
+        switchLayerVisibility(lights.value)
+    }
+}
+
+const onMove = () => {
+    const poi = getCenter() as { lng: number, lat: number }
+    const zoom = getZoom()
+    if (zoom) viewState.zoom = zoom
+    if (poi) {
+        viewState.longitude = poi.lng
+        viewState.latitude = poi.lat
+    }
+}
 </script>
-
-<template>
-    <div class="app-container p-24">
-        <div class="w-900 h-400" id="map" />
-    </div>
-</template>
 
 <style lang="scss" scoped></style>

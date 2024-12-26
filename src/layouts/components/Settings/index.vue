@@ -1,3 +1,19 @@
+<template>
+    <div class="setting-container">
+        <h4>布局配置</h4>
+        <SelectLayoutMode />
+        <el-divider />
+        <h4>功能配置</h4>
+        <div v-for="(settingValue, settingName, index) in switchSettings" :key="index" class="setting-item">
+            <span class="setting-name">{{ settingName }}</span>
+            <el-switch v-model="settingValue.value" :disabled="!isLeft && settingName === '固定 Header'" />
+        </div>
+        <el-button type="danger" :icon="Refresh" @click="resetLayoutsConfig">
+            重 置
+        </el-button>
+    </div>
+</template>
+
 <script lang="ts" setup>
 import { useSettingsStore } from "@/pinia/stores/settings"
 import { useLayoutMode } from "@@/composables/useLayoutMode"
@@ -52,22 +68,6 @@ function resetLayoutsConfig() {
     location.reload()
 }
 </script>
-
-<template>
-    <div class="setting-container">
-        <h4>布局配置</h4>
-        <SelectLayoutMode />
-        <el-divider />
-        <h4>功能配置</h4>
-        <div v-for="(settingValue, settingName, index) in switchSettings" :key="index" class="setting-item">
-            <span class="setting-name">{{ settingName }}</span>
-            <el-switch v-model="settingValue.value" :disabled="!isLeft && settingName === '固定 Header'" />
-        </div>
-        <el-button type="danger" :icon="Refresh" @click="resetLayoutsConfig">
-            重 置
-        </el-button>
-    </div>
-</template>
 
 <style lang="scss" scoped>
 @import "@@/assets/styles/mixins.scss";

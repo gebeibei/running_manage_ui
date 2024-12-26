@@ -1,58 +1,3 @@
-<script lang="ts" setup>
-import type { FormInstance } from "element-plus"
-import { useReset } from "@/common/composables/useReset"
-import { useRun } from "@/common/composables/useRun"
-import { usePagination } from "@@/composables/usePagination"
-import { Refresh, Search } from "@element-plus/icons-vue"
-
-defineOptions({
-    // 命名当前组件
-    name: "Records"
-})
-
-const router = useRouter()
-const loading = ref<boolean>(false)
-const { paginationData, handleCurrentChange, handleSizeChange } = usePagination()
-const { total, getList } = useRun()
-
-// #region 查
-const tableData = ref<ReturnType<typeof getList>>([])
-const searchFormRef = ref<FormInstance | null>(null)
-const { searchCondition, reset } = useReset({
-    pace: null,
-    distance: null,
-    heartRate: null,
-    runTime: "",
-    address: "",
-    dates: []
-})
-function getTableData() {
-    loading.value = true
-    tableData.value = getList({ ...searchCondition, pageNum: paginationData.currentPage, pageSize: paginationData.pageSize } as any)
-    paginationData.total = total.value
-    loading.value = false
-}
-function handleSearch() {
-    paginationData.currentPage === 1 ? getTableData() : (paginationData.currentPage = 1)
-}
-function resetSearch() {
-    reset()
-    searchFormRef.value?.resetFields()
-    handleSearch()
-}
-// #endregion
-
-const toView = (row: any) => {
-    router.push({
-        path: "/recordDetail",
-        query: { id: row.id }
-    })
-}
-
-// 监听分页参数的变化
-watch([() => paginationData.currentPage, () => paginationData.pageSize], getTableData, { immediate: true })
-</script>
-
 <template>
     <div class="app-container">
         <el-card v-loading="loading" shadow="never" class="search-wrapper">
@@ -130,6 +75,61 @@ watch([() => paginationData.currentPage, () => paginationData.pageSize], getTabl
         </el-card>
     </div>
 </template>
+
+<script lang="ts" setup>
+import type { FormInstance } from "element-plus"
+import { useReset } from "@/common/composables/useReset"
+import { useRun } from "@/common/composables/useRun"
+import { usePagination } from "@@/composables/usePagination"
+import { Refresh, Search } from "@element-plus/icons-vue"
+
+defineOptions({
+    // 命名当前组件
+    name: "Records"
+})
+
+const router = useRouter()
+const loading = ref<boolean>(false)
+const { paginationData, handleCurrentChange, handleSizeChange } = usePagination()
+const { total, getList } = useRun()
+
+// #region 查
+const tableData = ref<ReturnType<typeof getList>>([])
+const searchFormRef = ref<FormInstance | null>(null)
+const { searchCondition, reset } = useReset({
+    pace: null,
+    distance: null,
+    heartRate: null,
+    runTime: "",
+    address: "",
+    dates: []
+})
+function getTableData() {
+    loading.value = true
+    tableData.value = getList({ ...searchCondition, pageNum: paginationData.currentPage, pageSize: paginationData.pageSize } as any)
+    paginationData.total = total.value
+    loading.value = false
+}
+function handleSearch() {
+    paginationData.currentPage === 1 ? getTableData() : (paginationData.currentPage = 1)
+}
+function resetSearch() {
+    reset()
+    searchFormRef.value?.resetFields()
+    handleSearch()
+}
+// #endregion
+
+const toView = (row: any) => {
+    router.push({
+        path: "/recordDetail",
+        query: { id: row.id }
+    })
+}
+
+// 监听分页参数的变化
+watch([() => paginationData.currentPage, () => paginationData.pageSize], getTableData, { immediate: true })
+</script>
 
 <style lang="scss" scoped>
 .search-wrapper {

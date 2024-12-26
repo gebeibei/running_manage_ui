@@ -246,6 +246,7 @@ export const useRun = () => {
             if (country) countries.add(country)
         })
     }
+    groupAllData()
 
     return {
         total,

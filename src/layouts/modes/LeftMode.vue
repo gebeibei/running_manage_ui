@@ -1,3 +1,22 @@
+<template>
+    <div :class="layoutClasses" class="app-wrapper">
+        <!-- mobile 端侧边栏遮罩层 -->
+        <div v-if="layoutClasses.mobile && layoutClasses.openSidebar" class="drawer-bg" @click="handleClickOutside" />
+        <!-- 左侧边栏 -->
+        <Sidebar class="sidebar-container" />
+        <!-- 主容器 -->
+        <div :class="{ hasTagsView: showTagsView }" class="main-container">
+            <!-- 头部导航栏和标签栏 -->
+            <div :class="{ 'fixed-header': fixedHeader }" class="layout-header">
+                <NavigationBar />
+                <TagsView v-show="showTagsView" />
+            </div>
+            <!-- 页面主体内容 -->
+            <AppMain class="app-main" />
+        </div>
+    </div>
+</template>
+
 <script lang="ts" setup>
 import { useAppStore } from "@/pinia/stores/app"
 import { useSettingsStore } from "@/pinia/stores/settings"
@@ -27,25 +46,6 @@ function handleClickOutside() {
     appStore.closeSidebar(false)
 }
 </script>
-
-<template>
-    <div :class="layoutClasses" class="app-wrapper">
-        <!-- mobile 端侧边栏遮罩层 -->
-        <div v-if="layoutClasses.mobile && layoutClasses.openSidebar" class="drawer-bg" @click="handleClickOutside" />
-        <!-- 左侧边栏 -->
-        <Sidebar class="sidebar-container" />
-        <!-- 主容器 -->
-        <div :class="{ hasTagsView: showTagsView }" class="main-container">
-            <!-- 头部导航栏和标签栏 -->
-            <div :class="{ 'fixed-header': fixedHeader }" class="layout-header">
-                <NavigationBar />
-                <TagsView v-show="showTagsView" />
-            </div>
-            <!-- 页面主体内容 -->
-            <AppMain class="app-main" />
-        </div>
-    </div>
-</template>
 
 <style lang="scss" scoped>
 @import "@@/assets/styles/mixins.scss";

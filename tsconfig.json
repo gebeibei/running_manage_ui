@@ -22,7 +22,7 @@
             "@@/*": ["src/common/*"]
         },
         "resolveJsonModule": true,
-        "types": ["vite/client", "element-plus/global"],
+        "types": ["vite/client", "element-plus/global", "vue3-mapbox-gl/global"],
         // 允许导入 .ts .mts .tsx 拓展名的文件
         "allowImportingTsExtensions": true,
         // 允许 JS

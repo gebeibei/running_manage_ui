@@ -1,11 +1,3 @@
-<script lang="ts" setup>
-import { useWatermark } from "@@/composables/useWatermark"
-
-const localRef = ref<HTMLElement | null>(null)
-const { setWatermark, clearWatermark } = useWatermark(localRef)
-const { setWatermark: setGlobalWatermark, clearWatermark: clearGlobalWatermark } = useWatermark()
-</script>
-
 <template>
     <div class="app-container">
         <el-card shadow="never">
@@ -41,6 +33,14 @@ const { setWatermark: setGlobalWatermark, clearWatermark: clearGlobalWatermark }
         </el-card>
     </div>
 </template>
+
+<script lang="ts" setup>
+import { useWatermark } from "@@/composables/useWatermark"
+
+const localRef = ref<HTMLElement | null>(null)
+const { setWatermark, clearWatermark } = useWatermark(localRef)
+const { setWatermark: setGlobalWatermark, clearWatermark: clearGlobalWatermark } = useWatermark()
+</script>
 
 <style lang="scss" scoped>
 .el-card {
