@@ -16,14 +16,15 @@ export default antfu(
         },
         // 忽略文件
         ignores: [
-            ".github/"
+            ".github/",
+            "run_page/"
         ]
     },
     {
     // 对所有文件都生效的规则
         rules: {
             // vue
-            "vue/block-order": ["error", { order: ["script", "template", "style"] }],
+            "vue/block-order": ["error", { order: ["template", "script", "style"] }],
             "vue/attributes-order": "off",
             // ts
             "ts/no-use-before-define": "off",
