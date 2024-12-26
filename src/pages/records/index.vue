@@ -10,6 +10,7 @@ defineOptions({
     name: "Records"
 })
 
+const router = useRouter()
 const loading = ref<boolean>(false)
 const { paginationData, handleCurrentChange, handleSizeChange } = usePagination()
 const { total, getList } = useRun()
@@ -41,8 +42,11 @@ function resetSearch() {
 }
 // #endregion
 
-const toView = (row?: any) => {
-    console.log(row)
+const toView = (row: any) => {
+    router.push({
+        path: "/recordDetail",
+        query: { id: row.id }
+    })
 }
 
 // 监听分页参数的变化

@@ -20,6 +20,7 @@ export interface RunRecord {
         province: string
         city: string
         district: string
+        country?: string
     }
     address: string
 }
@@ -108,8 +109,9 @@ const titleForRun = (run: Activity) => {
 const runRecords = cloneDeep(data)
     .reverse()
     .map((item: Activity) => {
-        let location: { province: string, city: string, district: string } = {
+        let location: { province: string, city: string, district: string, country: string } = {
             province: "",
+            country: "",
             city: "",
             district: ""
         }
@@ -138,7 +140,8 @@ const runRecords = cloneDeep(data)
 export const useRun = () => {
     const total = ref(runRecords.length)
     const years: Map<string, RunRecord[]> = new Map()
-    const provinces = new Map()
+    const provinces: Set<string> = new Set()
+    const countries: Set<string> = new Set()
 
     const getDetailById = (id: number) => {
         return runRecords.find(item => item.id == id)
@@ -233,17 +236,14 @@ export const useRun = () => {
     const groupAllData = () => {
         runRecords.forEach((run) => {
             const year = run.startDate.slice(0, 4)
-            const province = run.location.province
+            const { province, country } = run.location
             if (years.has(year)) {
                 years.get(year)?.push(run)
             } else {
                 years.set(year, [run])
             }
-            if (provinces.has(province)) {
-                provinces.get(province).push(run)
-            } else {
-                provinces.set(province, [run])
-            }
+            if (province) provinces.add(province)
+            if (country) countries.add(country)
         })
     }
 
@@ -251,7 +251,8 @@ export const useRun = () => {
         total,
         runRecords,
         years,
-        provinces,
+        provinces: [...provinces],
+        countries: [...countries],
         getList,
         getDetailById,
         analysisRunData,

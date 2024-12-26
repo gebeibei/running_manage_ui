@@ -74,7 +74,8 @@ export const constantRoutes: RouteRecordRaw[] = [
                 name: "Overview",
                 meta: {
                     title: "概览",
-                    svgIcon: "dashboard"
+                    svgIcon: "dashboard",
+                    alwaysShow: true
                 }
             }
         ]
@@ -91,6 +92,16 @@ export const constantRoutes: RouteRecordRaw[] = [
                 meta: {
                     title: "运动记录",
                     svgIcon: "dashboard"
+                }
+            },
+            {
+                path: "recordDetail",
+                component: () => import("@/pages/records/detail.vue"),
+                name: "RecordDetail",
+                meta: {
+                    title: "运动记录详情",
+                    hidden: true,
+                    activeMenu: "/records"
                 }
             }
         ]
