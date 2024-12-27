@@ -223,10 +223,7 @@ const switchLayerVisibility = (lights: boolean) => {
     const styleJson = getStyle()
     styleJson?.layers.forEach((it: { id: string }) => {
         if (!keepWhenLightsOff.includes(it.id)) {
-            if (lights)
-                map?.setLayoutProperty(it.id, "visibility", "visible")
-            else
-                map?.setLayoutProperty(it.id, "visibility", "none")
+            map?.setLayoutProperty(it.id, "visibility", lights ? "visible" : "none")
         }
     })
 }

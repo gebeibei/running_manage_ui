@@ -87,6 +87,20 @@
     "watchEffect": true,
     "watchPostEffect": true,
     "watchSyncEffect": true,
-    "ElMessage": true
+    "ElMessage": true,
+    "setRouteChange": true,
+    "useDevice": true,
+    "useFetchSelect": true,
+    "useFullscreenLoading": true,
+    "useGreyAndColorWeakness": true,
+    "useLayoutMode": true,
+    "usePagination": true,
+    "usePany": true,
+    "useReset": true,
+    "useRouteListener": true,
+    "useRun": true,
+    "useTheme": true,
+    "useTitle": true,
+    "useWatermark": true
   }
 }

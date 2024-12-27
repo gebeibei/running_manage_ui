@@ -1,5 +1,6 @@
 import presetRemToPx from "@unocss/preset-rem-to-px"
-import { defineConfig, presetAttributify, presetUno, transformerVariantGroup } from "unocss"
+// import transformerDirectives from "@unocss/transformer-directives"
+import { defineConfig, presetAttributify, presetUno, transformerDirectives, transformerVariantGroup } from "unocss"
 
 export default defineConfig({
     shortcuts: [
@@ -68,7 +69,7 @@ export default defineConfig({
             }
         ]
     ],
-    transformers: [transformerVariantGroup()],
+    transformers: [transformerVariantGroup(), transformerDirectives()],
     presets: [
         presetUno(),
         presetAttributify(),

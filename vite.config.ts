@@ -113,6 +113,7 @@ export default defineConfig(({ mode }) => {
                 eslintrc: {
                     enabled: true
                 },
+                dirs: ["src/common/composables"],
                 resolvers: [ElementPlusResolver()]
             }),
             // 自动按需导入组件

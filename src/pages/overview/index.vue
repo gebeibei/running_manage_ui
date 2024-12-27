@@ -12,43 +12,43 @@
                         </div>
                         <div class="f-c-c" v-if="item.type === 'number'">
                             <el-statistic
-                                :value="indexData[item.key] as number"
+                                :value="+indexData[item.key]"
                                 class="font-bold f-24 c-font op-90 lh-24px"
                             />
                             <span class="f-16 lh-24px font-400 c-font op-90">{{ item.unit }}</span>
                         </div>
                         <div class="font-bold f-24 c-font op-90 lh-24px" v-else>
-                            {{ indexData[item.key as keyof typeof indexData] }}
+                            {{ indexData[item.key] }}
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="com-shadow bg-white p-24 m-t-24 grid grid-cols-2">
-                <div v-for="(run, idx) in years" :key="idx" class="mb-24">
+            <div class="com-shadow bg-white p-24 m-t-24 grid grid-cols-2 gap-col-24">
+                <div v-for="(run, idx) in years" :key="idx">
                     <div class="com-header">
                         {{ run[0] }}
                     </div>
 
                     <div class="f-c gap-col-24">
                         <template v-for="n in indexList" :key="n.key">
-                            <div class="f-c" v-if="indexData[run[0] as '2024']?.[n.key]">
+                            <div class="f-c" v-if="indexData[run[0]]?.[n.key]">
                                 <div class="com-info-label">
                                     {{ n.label }} :
                                 </div>
                                 <div class="com-info-value empty">
-                                    {{ indexData[run[0] as '2024']?.[n.key] }}
+                                    {{ indexData[run[0]]?.[n.key] }}
                                     <span>{{ n.unit }}</span>
                                 </div>
                             </div>
                         </template>
                     </div>
 
-                    <div v-html="svgRawContent[run[0] as '2024']" class="mt-12 w-100%" />
+                    <div v-html="svgRawContent[run[0]]" class="mt-12 flex svg-box" />
                 </div>
 
-                <div v-html="svgGithubIcon" class="mt-12 grid-col-start-1 w-100%" />
-                <div v-html="svgGridIcon" class="mt-12 w-100%" />
+                <div v-html="svgGithubIcon" class="mt-12 grid-col-start-1 flex svg-box" />
+                <div v-html="svgGridIcon" class="mt-12 flex svg-box" />
             </div>
         </div>
     </div>
@@ -61,23 +61,26 @@ import svgGridIcon from "@@/assets/icons/data-statis/grid.svg?raw"
 
 defineOptions({ name: "Overview" })
 
-const { runRecords, years, analysisRunData, groupAllData } = useRun()
+const { years, analysisRunData, groupAllData } = useRun()
 
-type CurrentYear = "2024"
 type RawKeys = ReturnType<typeof analysisRunData>
 
 const svgRawContent = ref<Record<string, string>>({})
-async function loadSvgByYear(year: string) {
+
+/** 批量加载svg */
+async function loadSvgs() {
     try {
-        // 根据年份动态生成SVG文件名
-        const svgFileName = `github_${year}.svg`
-        // 动态导入SVG文件并获取原始字符串
-        const svgModule = await import(`../../common/assets/icons/data-statis/${svgFileName}?raw`)
-        svgRawContent.value[year as string] = svgModule.default
+        const modules = import.meta.glob(`../../common/assets/icons/data-statis/github_*.svg`, { eager: true, import: "default", query: "?raw" })
+        for (const path in modules) {
+            const svgModule = modules[path]
+            const year = path.replace(/.*\/github_(\d+)\.svg$/, "$1")
+            svgRawContent.value[year] = svgModule as string
+        }
     } catch (error) {
-        console.error(`Failed to load SVG for year ${year}:`, error)
+        console.error(`Failed to load SVG:`, error)
     }
 }
+loadSvgs()
 
 const indexList = ref<{ label: string, key: keyof RawKeys, type: string, unit: string, icon: string, iconBg: string }[]>([
     {
@@ -107,17 +110,19 @@ const indexList = ref<{ label: string, key: keyof RawKeys, type: string, unit: s
     }
 ])
 
-const indexData = ref<RawKeys & { [x in CurrentYear]?: RawKeys }>({
-    totalDistance: "",
-    totalRuns: 0,
-    avgPace: "",
-    avgHeartRate: ""
-})
+const indexData = ref<Record<string, RawKeys>>({})
 
-indexData.value = analysisRunData(runRecords)
+// indexData.value = analysisRunData(runRecords)
 groupAllData()
-years.forEach((value, key) => {
-    indexData.value[key as CurrentYear] = analysisRunData(value)
-    loadSvgByYear(key)
+onMounted(() => {
+    years.forEach((value, key) => {
+        indexData.value[key] = analysisRunData(value)
+    })
 })
 </script>
+
+<style scoped>
+.svg-box {
+    @apply w-auto h-auto mb-24;
+}
+</style>
