@@ -10,23 +10,6 @@ import { WebMercatorViewport } from "viewport-mercator-project"
 
 export type Coordinate = [number, number]
 
-export type RunIds = Array<number> | []
-
-export interface Activity {
-    run_id: number
-    name: string
-    distance: number
-    moving_time: string
-    type: string
-    start_date: string
-    start_date_local: string
-    location_country?: string | null
-    summary_polyline?: string | null
-    average_heartrate?: number | null
-    average_speed: number
-    streak: number
-}
-
 const titleForShow = (run: Activity): string => {
     const date = run.start_date_local.slice(0, 11)
     const distance = (run.distance / 1000.0).toFixed(2)
@@ -331,9 +314,8 @@ const sortDateFuncReverse = (a: Activity, b: Activity) => sortDateFunc(b, a)
  * @param { T } data
  * @param { T1 } originKey 转换成目标对象的key对应数组对象中的属性,默认为value;
  * @param { T2 } targetKey 转换成目标对象的value对应数组对象中的属性，默认为label
- * @returns { ToKeyValue<T, T1, T2> }
  */
-const getDict = <T extends Readonly<Array<any>>, T1 extends string = "value", T2 extends string = "label">(
+export const getDict = <T extends Readonly<Array<any>>, T1 extends string = "value", T2 extends string = "label">(
     data: T,
     originKey: T1 = "value" as T1,
     targetKey: T2 = "label" as T2
@@ -351,7 +333,6 @@ export {
     geoJsonForMap,
     geoJsonForRuns,
     getBoundsForGeoData,
-    getDict,
     intComma,
     locationForRun,
     pathForRun,

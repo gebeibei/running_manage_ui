@@ -25,26 +25,26 @@
             </div>
 
             <div class="com-shadow bg-white p-24 m-t-24 grid grid-cols-2 gap-col-24">
-                <div v-for="(run, idx) in years" :key="idx">
+                <div v-for="([prop], idx) in years" :key="idx">
                     <div class="com-header">
-                        {{ run[0] }}
+                        {{ prop }}
                     </div>
 
                     <div class="f-c gap-col-24">
                         <template v-for="n in indexList" :key="n.key">
-                            <div class="f-c" v-if="indexData[run[0]]?.[n.key]">
+                            <div class="f-c" v-if="indexData[prop]?.[n.key]">
                                 <div class="com-info-label">
                                     {{ n.label }} :
                                 </div>
                                 <div class="com-info-value empty">
-                                    {{ indexData[run[0]]?.[n.key] }}
+                                    {{ indexData[prop]?.[n.key] }}
                                     <span>{{ n.unit }}</span>
                                 </div>
                             </div>
                         </template>
                     </div>
 
-                    <div v-html="svgRawContent[run[0]]" class="mt-12 flex svg-box" />
+                    <div v-html="svgRawContent[prop]" class="mt-12 flex svg-box" />
                 </div>
 
                 <div v-html="svgGithubIcon" class="mt-12 grid-col-start-1 flex svg-box" />
@@ -82,7 +82,7 @@ async function loadSvgs() {
 }
 loadSvgs()
 
-const indexList = ref<{ label: string, key: keyof RawKeys, type: string, unit: string, icon: string, iconBg: string }[]>([
+const indexList = ref([
     {
         label: "总里程",
         key: "totalDistance",
@@ -108,7 +108,7 @@ const indexList = ref<{ label: string, key: keyof RawKeys, type: string, unit: s
         icon: "https://api.iconify.design/material-symbols:favorite.svg",
         iconBg: "bg-#E8EAF0"
     }
-])
+] as const)
 
 const indexData = ref<Record<string, RawKeys>>({})
 

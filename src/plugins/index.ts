@@ -1,5 +1,6 @@
 import type { App } from "vue"
 import { installElementPlusIcons } from "./element-plus-icons"
+import { installMapBoxGl } from "./mapBoxGl"
 import { installPermissionDirective } from "./permission-directive"
 import { installSvgIcon } from "./svg-icon"
 import { installVxeTable } from "./vxe-table"
@@ -9,4 +10,5 @@ export function installPlugins(app: App) {
     installPermissionDirective(app)
     installSvgIcon(app)
     installVxeTable(app)
+    installMapBoxGl(app)
 }

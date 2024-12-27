@@ -170,8 +170,8 @@ defineOptions({ name: "RecordDetail" })
 
 const size = 5
 const markerStyle = {
-    transform: `translate(${-size / 2}px,${-size}px)`,
-    maxWidth: "25px"
+    maxWidth: "25px",
+    transform: `translate(${-size / 2}px,${-size}px)`
 }
 
 const route = useRoute()

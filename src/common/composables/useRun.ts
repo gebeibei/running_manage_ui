@@ -3,43 +3,6 @@ import data from "@/data/activities.json"
 import { cloneDeep } from "lodash-es"
 import { formatPace, formatRunTime, titleForRun } from "../utils/utils"
 
-export type Coordinate = [number, number]
-
-export type RunIds = Array<number> | []
-
-export interface RunRecord {
-    id: number
-    origin: Activity
-    startDate: string
-    distance: string
-    paceParts: string | null
-    heartRate: string | undefined
-    runTime: string
-    moment: string
-    location: {
-        province: string
-        city: string
-        district: string
-        country?: string
-    }
-    address: string
-}
-
-export interface Activity {
-    run_id: number
-    name: string
-    distance: number
-    moving_time: string
-    type: string
-    start_date: string
-    start_date_local: string
-    location_country?: string | null
-    summary_polyline?: string | null
-    average_heartrate?: number | null
-    average_speed: number
-    streak: number
-}
-
 export interface ListConfig {
     pageNum?: number
     pageSize?: number
@@ -57,7 +20,7 @@ export interface ListConfig {
 const runRecords = cloneDeep(data)
     .reverse()
     .map((item: Activity) => {
-        let location: { province: string, city: string, district: string, country: string } = {
+        let location: RunRecord["location"] = {
             province: "",
             country: "",
             city: "",
