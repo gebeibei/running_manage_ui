@@ -12,13 +12,13 @@
                         </div>
                         <div class="f-c-c" v-if="item.type === 'number'">
                             <el-statistic
-                                :value="+indexData[item.key]"
+                                :value="+indexData.total[item.key]"
                                 class="font-bold f-24 c-font op-90 lh-24px"
                             />
                             <span class="f-16 lh-24px font-400 c-font op-90">{{ item.unit }}</span>
                         </div>
                         <div class="font-bold f-24 c-font op-90 lh-24px" v-else>
-                            {{ indexData[item.key] }}
+                            {{ indexData.total[item.key] }}
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ import svgGridIcon from "@@/assets/icons/data-statis/grid.svg?raw"
 
 defineOptions({ name: "Overview" })
 
-const { years, analysisRunData, groupAllData } = useRun()
+const { years, runRecords, analysisRunData, groupAllData } = useRun()
 
 type RawKeys = ReturnType<typeof analysisRunData>
 
@@ -112,7 +112,7 @@ const indexList = ref([
 
 const indexData = ref<Record<string, RawKeys>>({})
 
-// indexData.value = analysisRunData(runRecords)
+indexData.value.total = analysisRunData(runRecords)
 groupAllData()
 onMounted(() => {
     years.forEach((value, key) => {
