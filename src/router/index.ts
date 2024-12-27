@@ -74,7 +74,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 name: "Overview",
                 meta: {
                     title: "概览",
-                    svgIcon: "dashboard",
+                    svgIcon: "overview",
                     alwaysShow: true
                 }
             }
@@ -91,7 +91,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 name: "Records",
                 meta: {
                     title: "运动记录",
-                    svgIcon: "dashboard"
+                    svgIcon: "database"
                 }
             },
             {
@@ -116,7 +116,7 @@ export const constantRoutes: RouteRecordRaw[] = [
                 component: () => import("@/pages/vDot/index.vue"),
                 name: "VDot",
                 meta: {
-                    title: "VDOT Running Calculator",
+                    title: "跑者计算器",
                     svgIcon: "calculator",
                     alwaysShow: true
                 }

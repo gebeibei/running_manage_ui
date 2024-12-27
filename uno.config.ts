@@ -15,7 +15,11 @@ export default defineConfig({
             "text-ellipsis": "truncate",
             "flex-0-auto": "shrink-0 grow-0 flex-basis-auto",
             "flex-x-auto": "flex-auto w-0",
-            "flex-y-auto": "flex-auto h-0"
+            "flex-y-auto": "flex-auto h-0",
+            "com-info-label": "lh-20 c-font f-14 op-70",
+            "com-info-value": "lh-20 c-font f-14",
+            "com-page": "com-shadow m-16 p-16 bg-white rd-2 b-1 b-solid b-border",
+            "com-header": "line-height-24 f-16 fw-bold m-b-16 op-90"
         },
         [/^((is|hint)-)?empty$/, () => "empty:before:content-empty"],
         [/^(text-)?ellipsis$/, () => "truncate"],
@@ -81,6 +85,7 @@ export default defineConfig({
             "line-clamp-more",
             { "overflow": "hidden", "display": "-webkit-box", "-webkit-line-clamp": "var(--line-clamp, 2)", "-webkit-box-orient": "vertical" }
         ],
+        ["com-shadow", { "box-shadow": "var(--el-box-shadow)" }],
         [
             /^calc-(m?w|m?h)-(\d+)$/,
             ([, hor, d]) => ({ [{ w: "width", h: "height", mw: "max-width", mh: "max-height" }[hor] as string]: `calc(100% - ${d}px)` })
@@ -89,7 +94,8 @@ export default defineConfig({
     ],
     theme: {
         colors: {
-
+            font: "rgba(var(--font), var(--un-bg-opacity, 1))",
+            border: "rgba(var(--border), var(--un-bg-opacity, 1))"
         }
     }
 })
