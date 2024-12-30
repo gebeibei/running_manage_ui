@@ -61,7 +61,7 @@ import svgGridIcon from "@@/assets/icons/data-statis/grid.svg?raw"
 
 defineOptions({ name: "Overview" })
 
-const { years, runRecords, analysisRunData, groupAllData } = useRun()
+const { years, runRecords, analysisRunData } = useRun()
 
 type RawKeys = ReturnType<typeof analysisRunData>
 
@@ -113,7 +113,6 @@ const indexList = ref([
 const indexData = ref<Record<string, RawKeys>>({})
 
 indexData.value.total = analysisRunData(runRecords)
-groupAllData()
 onMounted(() => {
     years.forEach((value, key) => {
         indexData.value[key] = analysisRunData(value)

@@ -144,12 +144,15 @@ export const useRun = () => {
         }
     }
 
+    /** 按照年份、国家、省份对跑步数据进行分组 */
     const groupAllData = () => {
         runRecords.forEach((run) => {
             const year = run.startDate.slice(0, 4)
             const { province, country } = run.location
             if (years.has(year)) {
-                years.get(year)?.push(run)
+                const _temp = years.get(year)
+                const target = _temp?.find(item => item.id === run.id)
+                if (!target) years.get(year)?.push(run)
             } else {
                 years.set(year, [run])
             }
