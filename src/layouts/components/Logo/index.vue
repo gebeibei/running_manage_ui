@@ -5,15 +5,14 @@
                 <img :src="logo" class="layout-logo">
             </router-link>
             <router-link v-else key="expand" to="/">
-                <img :src="!isLeft ? logoText2 : logoText1" class="layout-logo-text">
+                <img :src="logoText" class="layout-logo-text">
             </router-link>
         </transition>
     </div>
 </template>
 
 <script lang="ts" setup>
-import logoText1 from "@@/assets/images/layouts/logo-text-1.png?url"
-import logoText2 from "@@/assets/images/layouts/logo-text-2.png?url"
+import logoText from "@@/assets/images/layouts/logo-text-3.png?url"
 import logo from "@@/assets/images/running_bg.png?url"
 import { useLayoutMode } from "@@/composables/useLayoutMode"
 
@@ -25,7 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
     collapse: true
 })
 
-const { isLeft, isTop } = useLayoutMode()
+const { isTop } = useLayoutMode()
 </script>
 
 <style lang="scss" scoped>
