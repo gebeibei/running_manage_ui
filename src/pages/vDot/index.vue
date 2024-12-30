@@ -65,34 +65,20 @@ const onReset = () => {
     reset()
     formData.eventType = eventType
 }
-
-const handleSearch = () => {
-    console.log("🚀 ~ handleSearch ~ formData:", formData)
-
-    if (formData.time && !formData.pace) {
-        calcPaceByTime()
-    }
-
-    if (formData.pace && !formData.time) {
-        calcTimeByPace()
-    }
-}
-
 // 根据时间计算配速
 const calcPaceByTime = () => {
     const time = formData.time
     // 格式化时间为秒
     const timeArr = time.split(":")
     if (!timeArr.length) return
-    const format = `yyyy-MM-dd ${TYPE_FORMAT[formData.eventType][Math.abs(timeArr.length - 3)]}`
-    const currentDay = formatDateTime(new Date(), "yyyy-MM-dd")
+    const format = `YYYY-MM-DD ${TYPE_FORMAT[formData.eventType][Math.abs(timeArr.length - 3)]}`
+    const currentDay = formatDateTime(new Date(), "YYYY-MM-DD")
     const timeStr = `${currentDay} ${timeArr.map(n => n.padStart(2, "0")).join(":")}`
-    const timeTotal = +new Date(formatDateTime(timeStr, format)) - +new Date(`${currentDay} 00:00:00`)
+    const timeTotal = (+new Date(formatDateTime(timeStr, format)) - +new Date(`${currentDay} 00:00:00`)) / 1000
     // 距离
     const distance = TYPE_DISTANCE[formData.eventType] * 1000
     // 计算配速
-    const pace = formatPace(Math.floor(distance / timeTotal))?.replace(/'|"/g, ":")
-    console.log("🚀 ~ calcPaceByTime ~ Math.floor(distance / timeTotal):", distance, timeTotal)
+    const pace = formatPace(distance / timeTotal)?.replace(/'/g, ":")?.replace(/"/g, "")
 
     formData.pace = pace
 }
@@ -113,11 +99,20 @@ const calcTimeByPace = () => {
         return
     }
     // 距离
-    const distance = TYPE_DISTANCE[formData.eventType] * 1000
+    const distance = TYPE_DISTANCE[formData.eventType]
     // 计算时间
-    const time = formatPace(Math.floor(paceTotal * distance / 1000))
-    formData.time = time
+    const time = distance * paceTotal
+    const currentDay = formatDateTime(new Date(), "YYYY-MM-DD")
+    const startTime = +new Date(`${currentDay} 00:00:00`)
+    const endTime = startTime + time * 1000
+    // 将time转换成 HH:mm:ss
+    formData.time = formatDateTime(endTime, "HH:mm:ss")
+}
+
+const handleSearch = () => {
+    if (formData.pace && formData.time) return ElMessage.warning("请勿同时输入时间和配速！")
+    if (formData.time && !formData.pace) calcPaceByTime()
+
+    if (formData.pace && !formData.time) calcTimeByPace()
 }
 </script>
-
-<style lang="scss" scoped></style>

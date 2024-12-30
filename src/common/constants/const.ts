@@ -113,37 +113,37 @@ export const EVENT_DISTANCE = ([
         distance: 42.195,
         type: "FULL_MARATHON",
         name: "全程马拉松",
-        format: ["hh:mm:ss", "hh:mm:00", "hh:00:00"]
+        format: ["HH:mm:ss", "HH:mm:00", "hh:00:00"]
     },
     {
         distance: 21.0975,
         type: "HALF_MARATHON",
         name: "半程马拉松",
-        format: ["hh:mm:ss", "hh:mm:00", "hh:00:00"]
+        format: ["HH:mm:ss", "HH:mm:00", "hh:00:00"]
     },
     {
         distance: 1,
         type: "KM_1",
         name: "1KM",
-        format: ["hh:mm:ss", "00:mm:ss", "00:mm:00"]
+        format: ["HH:mm:ss", "00:mm:ss", "00:mm:00"]
     },
     {
         distance: 3,
         type: "KM_3",
         name: "3KM",
-        format: ["hh:mm:ss", "00:mm:ss", "00:mm:00"]
+        format: ["HH:mm:ss", "00:mm:ss", "00:mm:00"]
     },
     {
         distance: 5,
         type: "KM_5",
         name: "5KM",
-        format: ["hh:mm:ss", "00:mm:ss", "00:mm:00"]
+        format: ["HH:mm:ss", "00:mm:ss", "00:mm:00"]
     },
     {
         distance: 10,
         type: "KM_10",
         name: "10KM",
-        format: ["hh:mm:ss", "00:mm:ss", "00:mm:00"]
+        format: ["HH:mm:ss", "00:mm:ss", "00:mm:00"]
     }
     // {
     //     distance: 0.4,
