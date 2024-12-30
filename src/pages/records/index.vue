@@ -3,10 +3,10 @@
         <el-card v-loading="loading" shadow="never" class="search-wrapper">
             <el-form ref="searchFormRef" :model="searchCondition">
                 <div class="grid grid-cols-4 gap-x-24">
-                    <el-form-item prop="username" label="用户名">
+                    <el-form-item prop="username" label="配速">
                         <el-input placeholder="请输入最小配速(mm:ss)" v-model="searchCondition.pace" />
                     </el-form-item>
-                    <el-form-item prop="phone" label="手机号">
+                    <el-form-item prop="phone" label="心率">
                         <el-input placeholder="请输入最小心率" v-model="searchCondition.heartRate" />
                     </el-form-item>
                     <el-form-item label="距离">
