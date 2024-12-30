@@ -103,6 +103,16 @@ export const constantRoutes: RouteRecordRaw[] = [
                     hidden: true,
                     activeMenu: "/records"
                 }
+            },
+            {
+                path: "generateSvgScript",
+                component: () => import("@/pages/records/generateSvgScript.vue"),
+                name: "GenerateSvgScript",
+                meta: {
+                    title: "生成svg脚本",
+                    hidden: true,
+                    activeMenu: "/records"
+                }
             }
         ]
     },
