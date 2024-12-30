@@ -1,7 +1,7 @@
 <template>
     <div class="app-container">
-        <div class="bg-white p-24 wh-full">
-            <div class="w-50%">
+        <div class="bg-white p-24 wh-full grid grid-cols-2">
+            <div>
                 <el-form ref="formRef" :model="formData" label-position="top" label-suffix="：">
                     <el-form-item label="距离" prop="eventType">
                         <el-select v-model="formData.eventType" placeholder="请选择">
@@ -36,6 +36,9 @@
                     </el-form-item>
                 </el-form>
             </div>
+            <div class="f-s-c">
+                <el-image :src="logo" class="w-400"></el-image>
+            </div>
         </div>
     </div>
 </template>
@@ -45,6 +48,7 @@ import type { FormInstance } from "element-plus"
 import { useReset } from "@/common/composables/useReset"
 import { formatDateTime } from "@/common/utils/datetime"
 import { formatPace } from "@/common/utils/utils"
+import logo from "@@/assets/images/running_bg.png?url"
 import { EVENT_DISTANCE } from "@@/constants/const"
 import { getDict } from "@@/utils/utils"
 
