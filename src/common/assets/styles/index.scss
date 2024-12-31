@@ -43,6 +43,10 @@ body {
     @extend %scrollbar;
 }
 
+div {
+    @extend %scrollbar;
+}
+
 #app {
     height: 100%;
 }
