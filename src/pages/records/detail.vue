@@ -62,7 +62,7 @@
 
             <div></div>
         </div>
-
+        <!-- <HeartRateChart :id="+runId" /> -->
         <div class="w-full">
             <MapGL :record-info="recordInfo" :provinces :countries />
         </div>
@@ -70,6 +70,7 @@
 </template>
 
 <script lang="ts" setup>
+// import HeartRateChart from "./components/heartRateChart.vue"
 import MapGL from "./components/mapGL/MapGL.vue"
 
 defineOptions({ name: "RecordDetail" })

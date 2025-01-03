@@ -29,7 +29,7 @@ const runRecords = cloneDeep(data)
         item.location_country = item.location_country?.replace(/'/g, "\"").replace(/None/g, `null`)
 
         try {
-            location = JSON.parse(item?.location_country as any) || {}
+            location = JSON.parse(item?.location_country as any || "{}")
         } catch (error) {
             console.log("🚀 ~ runRecords ~ error:", error, item)
         }
@@ -48,6 +48,7 @@ const runRecords = cloneDeep(data)
         }
     })
 
+let hasGrouped = false
 export const useRun = () => {
     const total = ref(runRecords.length)
     const years: Map<string, RunRecord[]> = new Map()
@@ -56,6 +57,33 @@ export const useRun = () => {
 
     const getDetailById = (id: number) => {
         return runRecords.find(item => item.id == id)
+    }
+
+    const getHeartRateDataBId = async (id: number) => {
+        try {
+            const response = await fetch(`../../../GPX_OUT/${id}.gpx`)
+            const gpxData = await response.text()
+
+            // 解析GPX数据
+            const parser = new DOMParser()
+            const xmlDoc = parser.parseFromString(gpxData, "text/xml")
+            const trackPoints = xmlDoc.querySelectorAll("trkpt")
+
+            // 提取心率数据
+            const heartRates: number[] = []
+            console.log("🚀 ~ trackPoints.forEach ~ hr:", trackPoints[0].querySelector("gpxtpx\\:hr"))
+            trackPoints.forEach((point) => {
+                const hr = point.querySelector("gpxtpx\\:hr")
+                if (hr && hr.textContent) {
+                    heartRates.push(Number.parseInt(hr.textContent))
+                }
+            })
+            // console.log("🚀 ~ getHeartRateDataBId ~ heartRates:", heartRates)
+            return heartRates
+        } catch (error) {
+            console.error("Error fetching GPX data:", error)
+            return []
+        }
     }
 
     /**
@@ -160,7 +188,10 @@ export const useRun = () => {
             if (country) countries.add(country)
         })
     }
-    groupAllData()
+    if (!hasGrouped) {
+        groupAllData()
+        hasGrouped = true
+    }
 
     return {
         total,
@@ -170,6 +201,7 @@ export const useRun = () => {
         countries: [...countries],
         getList,
         getDetailById,
+        getHeartRateDataBId,
         analysisRunData,
         groupAllData
     }
