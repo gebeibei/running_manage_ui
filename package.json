@@ -25,6 +25,7 @@
         "@vueuse/core": "12.2.0",
         "axios": "1.7.9",
         "dayjs": "1.11.13",
+        "echarts": "5.6.0",
         "element-plus": "2.9.0",
         "gcoord": "1.0.6",
         "geojson": "0.5.0",
