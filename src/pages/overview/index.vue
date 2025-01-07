@@ -117,7 +117,6 @@ onMounted(() => {
     years.forEach((value, key) => {
         indexData.value[key] = analysisRunData(value)
     })
-    console.log("🚀 ~ indexData:", indexData.value, years)
 })
 </script>
 
