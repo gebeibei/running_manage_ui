@@ -23,6 +23,9 @@
                         <a target="_blank" href="https://github.com/gebeibei/running_manage_ui">
                             <el-dropdown-item>GitHub</el-dropdown-item>
                         </a>
+                        <a target="_blank" href="https://gebeibei.github.io/running">
+                            <el-dropdown-item>Running Page</el-dropdown-item>
+                        </a>
                         <el-dropdown-item divided @click="logout">
                             退出登录
                         </el-dropdown-item>

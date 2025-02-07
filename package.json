@@ -22,6 +22,7 @@
         "@mapbox/mapbox-gl-language": "1.0.1",
         "@mapbox/polyline": "1.2.1",
         "@surbowl/world-geo-json-zh": "2.1.4",
+        "@vue/shared": "3.5.13",
         "@vueuse/core": "12.2.0",
         "axios": "1.7.9",
         "dayjs": "1.11.13",

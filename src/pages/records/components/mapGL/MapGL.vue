@@ -109,7 +109,7 @@ const runTitle = recordInfo?.origin && titleForShow(recordInfo?.origin)
 
 const isSingleRun
     = geoData.value.features.length === 1
-    && geoData.value.features[0].geometry.coordinates.length
+        && geoData.value.features[0].geometry.coordinates.length
 const lights = ref(PRIVACY_MODE ? false : LIGHTS_ON)
 const initGeoDataLength = geoData.value.features.length
 const isBigMap = (viewState.zoom ?? 0) <= 3
@@ -154,7 +154,7 @@ const onLoad = () => {
     if (map && IS_CHINESE) {
         map.addControl(new MapboxLanguage({
             defaultLanguage: "zh-Hans"
-        }))
+        }) as any)
     }
 
     map?.on("style.load", () => {

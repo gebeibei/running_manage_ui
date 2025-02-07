@@ -9,18 +9,18 @@ declare module 'vue' {
   export interface GlobalComponents {
     SvgIcon: import("vue").DefineComponent<{
         name: {
-            type: import("vue").PropType<"calculator" | "dashboard" | "database" | "end" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "overview" | "run" | "search" | "start" | "data-statis/github" | "data-statis/github_2020" | "data-statis/github_2021" | "data-statis/github_2022" | "data-statis/github_2023" | "data-statis/github_2024" | "data-statis/grid" | "data-statis/grid_2024" | "data-statis/year_2020" | "data-statis/year_2021" | "data-statis/year_2022" | "data-statis/year_2023" | "data-statis/year_2024">;
+            type: import("vue").PropType<"calculator" | "dashboard" | "database" | "end" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "overview" | "run" | "search" | "start" | "data-statis/github" | "data-statis/github_2020" | "data-statis/github_2021" | "data-statis/github_2022" | "data-statis/github_2023" | "data-statis/github_2024" | "data-statis/github_2025" | "data-statis/grid" | "data-statis/grid_2024" | "data-statis/year_2020" | "data-statis/year_2021" | "data-statis/year_2022" | "data-statis/year_2023" | "data-statis/year_2024" | "data-statis/year_2025">;
             default: string;
             required: true;
         };
     }, {}, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {}, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         name: {
-            type: import("vue").PropType<"calculator" | "dashboard" | "database" | "end" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "overview" | "run" | "search" | "start" | "data-statis/github" | "data-statis/github_2020" | "data-statis/github_2021" | "data-statis/github_2022" | "data-statis/github_2023" | "data-statis/github_2024" | "data-statis/grid" | "data-statis/grid_2024" | "data-statis/year_2020" | "data-statis/year_2021" | "data-statis/year_2022" | "data-statis/year_2023" | "data-statis/year_2024">;
+            type: import("vue").PropType<"calculator" | "dashboard" | "database" | "end" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "overview" | "run" | "search" | "start" | "data-statis/github" | "data-statis/github_2020" | "data-statis/github_2021" | "data-statis/github_2022" | "data-statis/github_2023" | "data-statis/github_2024" | "data-statis/github_2025" | "data-statis/grid" | "data-statis/grid_2024" | "data-statis/year_2020" | "data-statis/year_2021" | "data-statis/year_2022" | "data-statis/year_2023" | "data-statis/year_2024" | "data-statis/year_2025">;
             default: string;
             required: true;
         };
     }>>, {
-        name: "calculator" | "dashboard" | "database" | "end" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "overview" | "run" | "search" | "start" | "data-statis/github" | "data-statis/github_2020" | "data-statis/github_2021" | "data-statis/github_2022" | "data-statis/github_2023" | "data-statis/github_2024" | "data-statis/grid" | "data-statis/grid_2024" | "data-statis/year_2020" | "data-statis/year_2021" | "data-statis/year_2022" | "data-statis/year_2023" | "data-statis/year_2024";
+        name: "calculator" | "dashboard" | "database" | "end" | "fullscreen-exit" | "fullscreen" | "keyboard-down" | "keyboard-enter" | "keyboard-esc" | "keyboard-up" | "overview" | "run" | "search" | "start" | "data-statis/github" | "data-statis/github_2020" | "data-statis/github_2021" | "data-statis/github_2022" | "data-statis/github_2023" | "data-statis/github_2024" | "data-statis/github_2025" | "data-statis/grid" | "data-statis/grid_2024" | "data-statis/year_2020" | "data-statis/year_2021" | "data-statis/year_2022" | "data-statis/year_2023" | "data-statis/year_2024" | "data-statis/year_2025";
     }>;
   }
 }
