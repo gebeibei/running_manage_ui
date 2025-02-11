@@ -45,7 +45,7 @@
             <div class="table-wrapper">
                 <el-table :data="tableData" height="100%">
                     <el-table-column prop="moment" label="Moment" show-overflow-tooltip />
-                    <el-table-column prop="startDate" label="Date" show-overflow-tooltip />
+                    <el-table-column prop="startDate" label="Date" width="180px" />
                     <el-table-column prop="distance" label="KM" show-overflow-tooltip />
                     <el-table-column prop="paceParts" label="Pace" show-overflow-tooltip />
                     <el-table-column prop="heartRate" label="BPM" show-overflow-tooltip />
