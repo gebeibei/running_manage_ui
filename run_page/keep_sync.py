@@ -132,8 +132,10 @@ def parse_raw_data_to_nametuple(
 
         for p in run_points_data_gpx:
             if "timestamp" not in p:
-                print(f"Warning: point missing 'timestamp' field: {p}")
-                continue
+                if "unixTimestamp" in p:
+                    p["timestamp"] = p["unixTimestamp"]
+                else:
+                    p["timestamp"] = 0
             p_hr = find_nearest_hr(decoded_hr_data, int(p["timestamp"]), start_time)
             if p_hr:
                 p["hr"] = p_hr
